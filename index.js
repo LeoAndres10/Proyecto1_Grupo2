@@ -19,15 +19,15 @@ app.use(express.json());
 const db = await mysql.createConnection({
     host: 'localhost',
     user: 'root',
-    password: '',
+    password: 'Rockstar1318',
     database: 'autolote'
 });
 
 // Middleware para verificar token JWT
 function verifyToken(req, res, next) {
-    const token = req.headers['authorization'];
-    if (!token) return res.status(403).json({ message: 'Token requerido' });
-
+    const authHeader = req.headers['authorization'];
+    if (!authHeader) return res.status(403).json({ message: 'Token requerido' });
+        const token = authHeader.split(' ', [1]);
     jwt.verify(token, SECRET_KEY, (err, decoded) => {
         if (err) return res.status(401).json({ message: 'Token inválido' });
         req.userId = decoded.id;
