@@ -55,7 +55,7 @@ app.post('/api/login', async (req, res) => {
     const validPassword = bcrypt.compareSync(password, rows[0].password);
     if (!validPassword) return res.status(401).json({ message: 'Contraseña incorrecta' });
 
-    const token = jwt.sign({ id: rows[0].id }, SECRET_KEY, { expiresIn: 86400 });
+    const token = jwt.sign({ id: rows[0].id }, SECRET_KEY, { expiresIn: '1h' });
     res.json({ auth: true, token });
 });
 
