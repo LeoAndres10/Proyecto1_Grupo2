@@ -3,9 +3,9 @@
 import express from 'express';
 import cors from 'cors';
 import jwt from 'jsonwebtoken';
-import bcrypt from 'bcryptjs';
+import bcrypt from 'bcrypt';
 import mysql from 'mysql2/promise';
-import { get } from 'axios';
+
 
 const app = express();
 const PORT = 5000;
