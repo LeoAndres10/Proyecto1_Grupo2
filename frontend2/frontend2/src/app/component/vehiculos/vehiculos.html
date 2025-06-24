@@ -1,0 +1,30 @@
+<h2>Lista de Vehiculos</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Código</th>
+      <th>Marca</th>
+       <th>Modelo</th>
+      <th>Año</th>
+      <th>Precio</th> 
+      <th>Disponible</th>  
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let auto of vehiculos">
+      <td>{{ auto.id }}</td>
+      <td>{{ auto.marca }}</td>
+       <td>{{ auto.modelo }}</td>
+      <td>{{ auto.anio }}</td>
+      <td>{{ auto.precio }}</td>
+      <td>{{ auto.disponible }}</td> 
+    </tr>
+  </tbody>
+</table>
+
+<p *ngIf="vehiculos.length === 0">No hay usuarios disponibles.</p>
+<div *ngIf="errorMessage" class="error-message">
+    {{ errorMessage }}
+  </div>
+
