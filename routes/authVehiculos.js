@@ -26,15 +26,15 @@ async function autoIncrementalId() {
 }
  
 routerVehiculos.post('/api/vehiculos', verifyToken, async (req, res) => {
-    const { id,marca, modelo, anio, precio, disponible } = req.body;
+    const {marca, modelo, anio, precio, disponible } = req.body;
     const vehiculo= await db.execute('INSERT INTO vehiculos (marca, modelo, anio, precio, disponible) VALUES (?, ?, ?, ?, ?)', [marca, modelo, anio, precio, disponible]);
     if (!vehiculo) {
            return res.status(500).json({status:500, message:'Error en la consulta al ingresar...', data:null});
 
     }
 
-      id = autoIncrementalId();
-    return res.status(200).json({status: 200, message: 'Vehículo agregado', vehiculo:vehiculo });
+   
+    return res.status(200).json({status: 200, message: 'Vehículo agregado', vehiculo:vehiculo.data });
 });
 
 routerVehiculos.put('/api/vehiculos/:id', verifyToken, async (req, res) => {
@@ -45,7 +45,7 @@ routerVehiculos.put('/api/vehiculos/:id', verifyToken, async (req, res) => {
    return res.status(500).json({status:500, message:'Error en la consulta al actualizar...', data:null});
 
     }
-    return res.status(200).json({status:200, message: 'Vehículo actualizado', actualizar:actualizar });
+    return res.status(200).json({status:200, message: 'Vehículo actualizado', });
 });
 
 routerVehiculos.delete('/api/vehiculos/:id', verifyToken, async (req, res) => {
