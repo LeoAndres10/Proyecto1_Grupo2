@@ -2,24 +2,48 @@ const {Sequelize} =require('sequelize');
 
 const db= new Sequelize(
     'postgres',
-    'postgres',
-    'Detodoelmundo13',
+    'postgres.plsxghjqbxudedtxwwgn',
+    'Detdodoelmundo13',
     {
-        host:'db.plsxghjqbxudedtxwwgn.supabase.co',
+        host:'aws-0-us-west-2.pooler.supabase.com',
         port:5432,
         dialect:'postgres',
+        dialectOptions: {
+    ssl: { require: true,
+    rejectUnauthorized: false 
+    }  // obligatorio para Supabase
+  },
+  pool: {
+    max: 10,
+    min: 0,
+    idle: 10000,
+    acquire: 30000
+  },
+
         logging: false
     }
 )
 
 const autolote = new Sequelize(
     'postgres',
-    'postgres',
-    'Detodoelmundo13',
+    'postgres.qwlduwfxolmihptdhysv',
+    'Detdodoelmundo13',
     {
-        host:'db.qwlduwfxolmihptdhysv.supabase.co',
+        host:'aws-0-us-west-2.pooler.supabase.com',
         port:5432,
         dialect:'postgres',
+        dialectOptions: {
+    ssl: { require: true,
+    rejectUnauthorized: false 
+ }  // obligatorio para Supabase
+  },
+  pool: {
+    max: 10,
+    min: 0,
+    idle: 10000,
+    acquire: 30000
+  },
+
         logging:false
     }
 )
