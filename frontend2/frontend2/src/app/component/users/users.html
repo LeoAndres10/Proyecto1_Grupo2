@@ -1,3 +1,78 @@
+
+
+<div class="container">
+  <div class="container-fluid" >
+            <div class="row mt-3">
+                <div class="col-md-4 offset-md-4">
+                    <div class="d-grid mx-auto">
+                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalUsuario" (click)="openModalB()"> Añadir Usuario</button>
+                    </div>
+                </div>
+            </div>
+  </div>
+
+  <div #modalUsuario
+  id="modalUsuario"
+  class="modal fade"
+  tabindex="-1"
+
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h5 class="modal-title"> Registro de Usuarios</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+
+      <form (ngSubmit)="Usuario()" class="modal-body">
+
+
+        <app-datousuario
+          id="Nombre"
+          iconName="fa fa-tag"
+          inputType="text"
+          placeHolder="Nombre"
+          [(value)]="Nombre"
+        ></app-datousuario>
+
+        <app-datousuario
+          id="Password"
+          iconName="fa fa-industry"
+          inputType="text"
+          placeHolder="Password"
+          [(value)]="Password"
+        ></app-datousuario>
+
+      
+   
+
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-success">
+            <i class="fa fa-floppy-disk"></i> Guardar
+          </button>
+
+          <button
+            type="button"
+            class="btn btn-danger"
+            data-bs-dismiss="modal"
+          >
+            <i class="fa fa-circle-xmark"></i> Cerrar
+          </button>
+        </div>
+      </form>
+
+    </div>
+  </div>
+ </div>
+</div>
+
+<div>
 <h2>Lista de Usuarios</h2>
 
 <table>
@@ -5,21 +80,28 @@
     <tr>
       <th>Código</th>
       <th>Nombre</th>
-      <!-- <th>Email</th>
-      <th>Móvil</th> -->
+       <th>Contraseña</th>
+     
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let user of users">
       <td>{{ user.id }}</td>
-      <td>{{ user.username }}</td>
-      <!-- <td>{{ user.email }}</td>
+      <td>{{ user.Nombre }}</td>
+      <td>{{ user.Password }}</td>
+       <!--
       <td>{{ user.telefono_movil }}</td> -->
     </tr>
   </tbody>
 </table>
 
 <p *ngIf="users.length === 0">No hay usuarios disponibles.</p>
+<div *ngIf="errorMessage" class="error-message">
+    {{ errorMessage }}
+  </div>
+
+
+  
 <div *ngIf="errorMessage" class="error-message">
     {{ errorMessage }}
   </div>

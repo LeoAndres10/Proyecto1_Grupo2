@@ -1,0 +1,44 @@
+
+
+<div class="container-fluid">
+      <h2>Lista de Vendidos</h2>
+
+<table >
+  <thead>
+    <tr >
+      <th>ID</th>  
+      <th>Código</th>
+      <th>Nombre</th>
+       <th>Marca</th>
+      <th>Precio</th> 
+      <th>Fecha de Compra</th>  
+       <th><p>Total: {{ Total }} Lps</p></th>
+      
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let dato of datos">
+      <td>{{ dato.repuesto_id }}</td>
+       <td>{{ dato.codigo_repuesto }}</td>
+      <td>{{ dato.nombre_repuesto }}</td>
+       <td>{{ dato.marca_repuesto }}</td>
+       <td>{{ dato.precio_unitario }}</td>
+      <td>{{ dato.fecha_compra }}</td>
+      
+   
+        
+        
+         
+    </tr>
+    
+  </tbody>
+</table>
+
+<p *ngIf="datos.length === 0">No hay usuarios disponibles.</p>
+<div *ngIf="errorMessage" class="error-message">
+    {{ errorMessage }}
+  </div>
+<div *ngIf="errorMessage" class="error-message">
+    {{ errorMessage }}
+  </div>
+

@@ -1,0 +1,31 @@
+<h2>Lista de Conversiones</h2>
+
+<table>
+  <thead>
+    <tr>
+     
+      <th>ID</th>
+       <th>Marca</th>
+      <th>Modelo</th>
+      <th>Año</th> 
+      <th>Precio</th>  
+      <th>Disponible</th>  
+      <th>Precio Convertido</th> 
+      <th>Moneda</th> 
+      <th>Tasa Cambio</th>  
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let conversor of conversorarray">
+      <td>{{ conversor.dataValues.id}}</td>
+      <td>{{ conversor.dataValues.marca}}</td>
+      <td>{{ conversor.dataValues.modelo}}</td>
+      <td>{{ conversor.dataValues.anio}}</td>
+      <td>{{ conversor.dataValues.precio}}</td>
+      <td>{{ conversor.dataValues.disponible}}</td>
+      <td>{{ conversor.precio_convertido}}</td>
+      <td>{{ conversor.moneda}}</td>
+      <td>{{ conversor.rates}}</td>
+    </tr>
+  </tbody>
+</table>

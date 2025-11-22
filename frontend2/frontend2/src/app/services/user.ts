@@ -21,6 +21,15 @@ private apiUrl = 'http://localhost:5000/api';
     return this.http.get(this.apiUrl+'/users', { headers });
   }
 
+   insertarUsuario(credentials: any): Observable<any> {
+    const token = localStorage.getItem('token');
+    
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}` // Agrega el token en el header
+    });
+    return this.http.post(this.apiUrl+'/users', credentials, { headers });
+  }
+
  
 }
 

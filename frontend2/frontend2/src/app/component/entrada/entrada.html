@@ -1,0 +1,13 @@
+<div class="input-group mb-3">
+  <span class="input-group-text">
+    <i [class]="iconName"></i>
+  </span>
+  <input
+    class="form-control"
+    [type]="inputType"
+    [id]="id"
+    [placeholder]="placeHolder"
+    (input)="onInputChange($event)"
+    [value]="value !== null && value !== undefined ? value : ''"
+  />
+</div>

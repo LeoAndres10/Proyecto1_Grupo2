@@ -1,0 +1,347 @@
+
+<div class="container">
+  <h2>Buscador de Productos</h2>
+  <input type="text" [formControl]="search" placeholder="Buscar..." />
+  <button (click)="onBuscar()">Buscar</button>
+  
+  <div class="container-fluid" >
+            <div class="row mt-3">
+                <div class="col-md-4 offset-md-4">
+                    <div class="d-grid mx-auto">
+                      <button class="btn btn-outline-info" type="button" id="btnCarrito"  data-bs-toggle="modal" data-bs-target="#modalRepuestoCarrito">
+                                <svg xmlns="http://www.w3.org/2000/svg" 
+                                class="icon icon-tabler icon-tabler-shopping-cart-filled" 
+                                width="30" height="30" viewBox="0 0 24 24" stroke-width="1.5" 
+                                stroke="#fd0061" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                <path d="M6 2a1 1 0 0 1 .993 .883l.007 .117v1.068l13.071 .935a1 1 0 0 1 .929 1.024l-.01 .114l-1 7a1 1 0 0 1 -.877 .853l-.113 .006h-12v2h10a3 3 0 1 1 -2.995 3.176l-.005 -.176l.005 -.176c.017 -.288 .074 -.564 .166 -.824h-5.342a3 3 0 1 1 -5.824 1.176l-.005 -.176l.005 -.176a3.002 3.002 0 0 1 1.995 -2.654v-12.17h-1a1 1 0 0 1 -.993 -.883l-.007 -.117a1 1 0 0 1 .883 -.993l.117 -.007h2zm0 16a1 1 0 1 0 0 2a1 1 0 0 0 0 -2zm11 0a1 1 0 1 0 0 2a1 1 0 0 0 0 -2z" stroke-width="0" fill="currentColor" />
+                                </svg> 
+                              </button>
+                      <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalRepuesto" (click)="openModal()"> Añadir Repuesto</button>
+                    </div>
+                </div>
+            </div>
+  </div>
+
+  <div #modalRepuesto
+  id="modalRepuesto"
+  class="modal fade"
+  tabindex="-1"
+
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h5 class="modal-title"> Registro de Repuesto</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+
+      <form (ngSubmit)="addRepuesto()" class="modal-body">
+
+
+        <app-entrada
+          id="Codigo"
+          iconName="fa fa-barcode"
+          inputType="text"
+          placeHolder="Codigo"
+          [(value)]="Codigo"
+        ></app-entrada>
+
+        <app-entrada
+          id="Nombre"
+          iconName="fa fa-tag"
+          inputType="text"
+          placeHolder="Nombre"
+          [(value)]="Nombre"
+        ></app-entrada>
+
+        <app-entrada
+          id="Marca"
+          iconName="fa fa-industry"
+          inputType="text"
+          placeHolder="Marca"
+          [(value)]="Marca"
+        ></app-entrada>
+
+        <app-entrada
+          id="Cantidad"
+          iconName="fa fa-sort-numeric-up"
+          inputType="number"
+          placeHolder="Cantidad"
+          [(value)]="Cantidad"
+        ></app-entrada>
+
+        <app-entrada
+          id="Precio"
+          iconName="fa fa-dollar-sign"
+          inputType="number"
+          placeHolder="Precio"
+          [(value)]="Precio"
+        ></app-entrada>
+
+        <app-entrada
+          id="Estante"
+          iconName="fa fa-archive"
+          inputType="number"
+          placeHolder="Estante"
+          [(value)]="Estante"
+        ></app-entrada>
+
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-success">
+            <i class="fa fa-floppy-disk"></i> Guardar
+          </button>
+
+          <button
+            type="button"
+            class="btn btn-danger"
+            data-bs-dismiss="modal"
+          >
+            <i class="fa fa-circle-xmark"></i> Cerrar
+          </button>
+        </div>
+      </form>
+
+    </div>
+  </div>
+</div>
+
+<div>
+      <h2>Lista de Repuestos</h2>
+
+<table >
+  <thead>
+    <tr >
+      <th>ID</th>  
+      <th>Código</th>
+      <th>Nombre</th>
+       <th>Marca</th>
+      <th>Cantidad</th>
+      <th>Precio</th> 
+      <th>Estante</th>  
+      <th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let repuesto of resultados">
+      <td>{{ repuesto.id }}</td>
+       <td>{{ repuesto.Codigo }}</td>
+      <td>{{ repuesto.Nombre }}</td>
+       <td>{{ repuesto.Marca }}</td>
+       <td>{{ repuesto.Cantidad }}</td>
+      <td>{{ repuesto.Precio }}</td>
+      <td>{{ repuesto.Estante }}</td>
+     
+      <td >   
+  
+
+        <button class="btn btn-danger" (click)="deleteRepuesto(repuesto.id)"> Eliminar Registro</button>
+         <button type="button" class="btn btn-dark" (click)="Carrito(repuesto.id)">Agregar al Carrito L<span class="badge text-bg-secondary precio-producto"></span></button>
+
+      
+         <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalRepuestoActualizar" (click)="editarRepuesto(repuesto)">Editar Registro</button>
+          
+
+        </td>
+      
+        
+         
+    </tr>
+  </tbody>
+</table>
+
+<p *ngIf="resultados.length === 0">No hay usuarios disponibles.</p>
+<div *ngIf="errorMessage" class="error-message">
+    {{ errorMessage }}
+  </div>
+<div *ngIf="errorMessage" class="error-message">
+    {{ errorMessage }}
+  </div>
+
+
+
+<div class="container"  >
+ 
+ 
+ <div #modalRepuestoActualizar 
+  id="modalRepuestoActualizar" 
+  class="modal fade"
+  tabindex="-1"
+
+>
+  <div class="modal-dialog" >
+    <div class="modal-content"  >
+
+      <div class="modal-header">
+        <h5 class="modal-title"> Actualizar Repuesto</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+
+      <form (ngSubmit)="updateRepuesto(id)" class="modal-body">
+
+
+        <app-entrada
+          id="Codigo"
+          iconName="fa fa-barcode"
+          inputType="text"
+          placeHolder="Codigo"
+         
+          [(value)]="Codigo"
+        ></app-entrada>
+
+        <app-entrada
+          id="Nombre"
+          iconName="fa fa-tag"
+          inputType="text"
+          placeHolder="Nombre"
+          [(value)]="Nombre"
+        ></app-entrada>
+
+        <app-entrada
+          id="Marca"
+          iconName="fa fa-industry"
+          inputType="text"
+          placeHolder="Marca"
+          [(value)]="Marca"
+        ></app-entrada>
+
+        <app-entrada
+          id="Cantidad"
+          iconName="fa fa-sort-numeric-up"
+          inputType="number"
+          placeHolder="Cantidad"
+          [(value)]="Cantidad"
+        ></app-entrada>
+
+        <app-entrada
+          id="Precio"
+          iconName="fa fa-dollar-sign"
+          inputType="number"
+          placeHolder="Precio"
+          [(value)]="Precio"
+        ></app-entrada>
+
+        <app-entrada
+          id="Estante"
+          iconName="fa fa-archive"
+          inputType="number"
+          placeHolder="Estante"
+          [(value)]="Estante"
+        ></app-entrada>
+
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-success">
+            <i class="fa fa-floppy-disk"></i> Guardar
+          </button>
+
+          <button
+            type="button"
+            class="btn btn-danger"
+            data-bs-dismiss="modal"
+          >
+            <i class="fa fa-circle-xmark"></i> Cerrar
+          </button>
+        </div>
+      </form>
+
+    </div>
+  </div>
+</div>
+
+<div class="container"  >
+ 
+ 
+ <div #modalRepuestoCarrito 
+  id="modalRepuestoCarrito" 
+  class="modal fade"
+  tabindex="-1"
+
+>
+  <div class="modal-dialog" >
+    <div class="modal-content"  >
+
+      <div class="modal-header">
+        <h5 class="modal-title"> Carrito Repuesto</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      
+  <div >
+    <form (ngSubmit)="addInv()" class="modal-body" >
+
+
+        <div  *ngIf="calcularCarrito()" class="container-fluid">
+      <h2>Lista de Repuestos</h2>
+
+        <table id="table2">
+        <thead>
+        <tr >
+      <th>ID</th>  
+      <th>Código</th>
+      <th>Nombre</th>
+       <th>Marca</th>
+      <th>Cantidad</th>
+      <th>Precio</th> 
+      <th>Estante</th>  
+      <th>Acciones</th>
+      </tr>
+      </thead>
+        <tbody>
+        <tr *ngFor="let producto of carrito">
+      <td>{{ producto.id }}</td>
+       <td>{{ producto.Codigo }}</td>
+      <td>{{ producto.Nombre }}</td>
+       <td>{{ producto.Marca }}</td>
+       <td>{{ producto.Cantidad }}</td>
+      <td>{{ producto.Precio }}</td>
+      <td>{{ producto.Estante }}</td>
+     
+        <td >   
+  
+
+        <button class="btn btn-danger" (click)="deleteRepuestoCarrito(producto.id)"> Eliminar Registro</button>
+
+        </td>
+      
+        
+         
+        </tr>
+          </tbody>
+        </table>
+
+        <p>Total: {{ Total }} Lps</p>
+
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-success">
+            <i class="fa fa-floppy-disk"></i> Guardar
+          </button>
+
+          <button
+            type="button"
+            class="btn btn-danger"
+            data-bs-dismiss="modal"
+          >
+            <i class="fa fa-circle-xmark"></i> Cerrar
+          </button>
+        </div>
+    </div>
+    </form>
+    
+   
+  </div>
+</div>

@@ -1,3 +1,97 @@
+<div class="container">
+  <div class="container-fluid" >
+            <div class="row mt-3">
+                <div class="col-md-4 offset-md-4">
+                    <div class="d-grid mx-auto">
+                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalVehiculo" (click)="openModalB()"> Añadir Auto </button>
+                    </div>
+                </div>
+            </div>
+  </div>
+
+  <div #modalVehiculo
+  id="modalVehiculo"
+  class="modal fade"
+  tabindex="-1"
+
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h5 class="modal-title"> Registro de Usuarios</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+
+      <form (ngSubmit)="addAuto()" class="modal-body">
+
+
+        <app-datoautos
+          id="marca"
+          iconName="fa fa-tag"
+          inputType="text"
+          placeHolder="marca"
+          [(value)]="marca"
+        ></app-datoautos>
+
+        <app-datoautos
+          id="Modelo"
+          iconName="fa fa-industry"
+          inputType="text"
+          placeHolder="modelo"
+          [(value)]="modelo"
+        ></app-datoautos>
+
+      <app-datoautos
+          id="anio"
+          iconName="fa fa-industry"
+          inputType="text"
+          placeHolder="anio"
+          [(value)]="anio"
+        ></app-datoautos>
+  
+        <app-datoautos
+          id="precio"
+          iconName="fa fa-industry"
+          inputType="number"
+          placeHolder="precio"
+          [(value)]="precio"
+        ></app-datoautos>
+
+        <app-datoautos
+          id="disponible"
+          iconName="fa fa-industry"
+          inputType="text"
+          placeHolder="disponible"
+          [(value)]="disponible"
+        ></app-datoautos>
+
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-success">
+            <i class="fa fa-floppy-disk"></i> Guardar
+          </button>
+
+          <button
+            type="button"
+            class="btn btn-danger"
+            data-bs-dismiss="modal"
+          >
+            <i class="fa fa-circle-xmark"></i> Cerrar
+          </button>
+        </div>
+      </form>
+
+    </div>
+  </div>
+ </div>
+</div>
+
+
 <h2>Lista de Vehiculos</h2>
 
 <table>
@@ -9,6 +103,7 @@
       <th>Año</th>
       <th>Precio</th> 
       <th>Disponible</th>  
+      <th>Acciones</th>
     </tr>
   </thead>
   <tbody>
@@ -19,6 +114,13 @@
       <td>{{ auto.anio }}</td>
       <td>{{ auto.precio }}</td>
       <td>{{ auto.disponible }}</td> 
+      <td >
+        
+     <button class="btn btn-danger" (click)="deleteVehiculo(auto.id)">Eliminar</button>
+    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalVehiculoActualizar" (click)="editarVehiculo(auto)">Editar Registro</button>
+
+
+      </td>
     </tr>
   </tbody>
 </table>
@@ -27,4 +129,96 @@
 <div *ngIf="errorMessage" class="error-message">
     {{ errorMessage }}
   </div>
+<div *ngIf="errorMessage" class="error-message">
+    {{ errorMessage }}
+  </div>
+
+
+ 
+
+<div class="container"  >
+ 
+ 
+ <div #modalVehiculoActualizar 
+  id="modalVehiculoActualizar" 
+  class="modal fade"
+  tabindex="-1"
+
+>
+  <div class="modal-dialog" >
+    <div class="modal-content"  >
+
+      <div class="modal-header">
+        <h5 class="modal-title"> Actualizar Vehiculo</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+
+      <form (ngSubmit)="updateVehiculo(id)" class="modal-body">
+
+
+        <app-datoautos
+          id="marca"
+          iconName="fa fa-barcode"
+          inputType="text"
+          placeHolder="marca"
+         
+          [(value)]="marca"
+        ></app-datoautos>
+
+        <app-datoautos
+          id="modelo"
+          iconName="fa fa-tag"
+          inputType="text"
+          placeHolder="modelo"
+          [(value)]="modelo"
+        ></app-datoautos>
+
+        <app-datoautos
+          id="anio"
+          iconName="fa fa-industry"
+          inputType="text"
+          placeHolder="anio"
+          [(value)]="anio"
+        ></app-datoautos>
+
+
+        <app-datoautos
+          id="precio"
+          iconName="fa fa-dollar-sign"
+          inputType="number"
+          placeHolder="precio"
+          [(value)]="precio"
+        ></app-datoautos>
+
+        <app-datoautos
+          id="disponible"
+          iconName="fa fa-archive"
+          inputType="number"
+          placeHolder="disponible"
+          [(value)]="disponible"
+        ></app-datoautos>
+
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-success">
+            <i class="fa fa-floppy-disk"></i> Guardar
+          </button>
+
+          <button
+            type="button"
+            class="btn btn-danger"
+            data-bs-dismiss="modal"
+          >
+            <i class="fa fa-circle-xmark"></i> Cerrar
+          </button>
+        </div>
+      </form>
+
+    </div>
+  </div>
+</div>
 

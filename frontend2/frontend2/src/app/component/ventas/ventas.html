@@ -1,0 +1,138 @@
+
+<div class="container">
+  <div class="container-fluid" >
+            <div class="row mt-3">
+                <div class="col-md-4 offset-md-4">
+                    <div class="d-grid mx-auto">
+                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalVenta" (click)="openModalB()"> Añadir Venta </button>
+                    </div>
+                </div>
+            </div>
+  </div>
+
+  <div #modalVenta
+  id="modalVenta"
+  class="modal fade"
+  tabindex="-1"
+
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h5 class="modal-title"> Registro de Ventas</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+
+      <form (ngSubmit)="addVentas()" class="modal-body">
+
+
+        <app-entrada
+          id="fecha"
+          iconName="fa fa-tag"
+          inputType="text"
+          placeHolder="fecha"
+          [(value)]="fecha"
+        ></app-entrada>
+
+        <app-entrada
+          id="vehiculo_id"
+          iconName="fa fa-industry"
+          inputType="text"
+          placeHolder="vehiculo id"
+          [(value)]="vehiculo_id"
+        ></app-entrada>
+
+      <app-entrada
+          id="cliente_id"
+          iconName="fa fa-industry"
+          inputType="text"
+          placeHolder="cliente id"
+          [(value)]="cliente_id"
+        ></app-entrada>
+  
+        <app-entrada
+          id="vendedor_id"
+          iconName="fa fa-industry"
+          inputType="text"
+          placeHolder="vendedor id"
+          [(value)]="vendedor_id"
+        ></app-entrada>
+
+        <app-entrada
+          id="precio_total"
+          iconName="fa fa-industry"
+          inputType="text"
+          placeHolder="precio total"
+          [(value)]="precio_total"
+        ></app-entrada>
+
+ <app-entrada
+          id="impuestos"
+          iconName="fa fa-industry"
+          inputType="text"
+          placeHolder="impuestos"
+          [(value)]="impuestos"
+        ></app-entrada>
+
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-success">
+            <i class="fa fa-floppy-disk"></i> Guardar
+          </button>
+
+          <button
+            type="button"
+            class="btn btn-danger"
+            data-bs-dismiss="modal"
+          >
+            <i class="fa fa-circle-xmark"></i> Cerrar
+          </button>
+        </div>
+      </form>
+
+    </div>
+  </div>
+ </div>
+</div>
+
+
+<h2>Lista de Ventas</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Fecha</th>
+      <th>Vehiculo ID</th>
+       <th>Cliente ID</th>
+      <th>Vendedor ID</th>
+      <th>Precio Total</th> 
+      <th>Impuestos</th>  
+     
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let venta of ventas">
+      <td>{{ venta.fecha }}</td>
+      <td>{{ venta.vehiculo_id }}</td>
+       <td>{{venta.cliente_id }}</td>
+      <td>{{ venta.vendedor_id }}</td>
+      <td>{{ venta.precio_total }}</td>
+      <td>{{ venta.impuestos }}</td> 
+      
+    </tr>
+  </tbody>
+</table>
+
+<p *ngIf="ventas.length === 0">No hay usuarios disponibles.</p>
+<div *ngIf="errorMessage" class="error-message">
+    {{ errorMessage }}
+  </div>
+<div *ngIf="errorMessage" class="error-message">
+    {{ errorMessage }}
+  </div>
+

@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { Cliente } from '../../services/cliente';
 @Component({
   selector: 'app-clientes',
+  standalone:true,
   imports: [CommonModule],
   templateUrl: './clientes.html',
   styleUrl: './clientes.scss'
