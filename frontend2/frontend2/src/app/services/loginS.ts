@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class LoginS {
 
-private apiUrl = 'http://localhost:5000/api'; // Cambia esto según tu backend
+private apiUrl = 'https://proyecto1-3m7h.onrender.com/api'; // Cambia esto según tu backend
 
   constructor(private http: HttpClient) {}
 

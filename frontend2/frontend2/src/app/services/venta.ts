@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 export class Venta {
 
   
-private apiUrl = 'http://localhost:5000/api';
+private apiUrl = 'https://proyecto1-3m7h.onrender.com/api';
   constructor( private http: HttpClient) { }
 
   getVentas(): Observable<any> {

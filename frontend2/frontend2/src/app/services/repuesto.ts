@@ -6,7 +6,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class Repuesto {
-  private API_URL = 'http://localhost:5000/api/repuestos';
+  private API_URL = 'https://proyecto1-3m7h.onrender.com/api/repuestos';
 private carritoSource = new BehaviorSubject<any[]>([]);
 carrito$ = this.carritoSource.asObservable();
 

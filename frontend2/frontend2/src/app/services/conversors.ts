@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 })
 export class Conversors {
 
-public apiUrl = 'http://localhost:5000/api';
+public apiUrl = 'https://proyecto1-3m7h.onrender.com/api';
 
   constructor(private http: HttpClient) {}
 
