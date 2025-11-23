@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Repuesto } from '../../services/repuesto';
 import { ActivatedRoute } from '@angular/router';
 import { FormsModule } from '@angular/forms';
@@ -19,7 +19,7 @@ declare var bootstrap: any;
   templateUrl: './repuestos.html',
   styleUrl: './repuestos.css'
 })
-export class Repuestos {
+export class Repuestos implements OnInit {
   @ViewChild('modalRepuestoActualizar', { static: false }) modalElement!:ElementRef;
   @ViewChild('modalRepuesto', { static: false }) modalElements!: ElementRef;
    @ViewChild('modalRepuestoCarrito', { static: false }) modalElementos!: ElementRef;
