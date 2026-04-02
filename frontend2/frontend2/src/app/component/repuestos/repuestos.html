@@ -1,13 +1,62 @@
 
-<div class="container">
-  <h2>Buscador de Productos</h2>
-  <input type="text" [formControl]="search" placeholder="Buscar..." />
-  <button (click)="onBuscar()">Buscar</button>
+
+<header class="header">
+  <nav class="nav">
+    
+    <ul class="nav-links">
+      <li><a routerLink="/home">MegaRepuestos</a></li>
+      <li><a routerLink="/repuestos">Repuestos</a></li>
+      <li><a routerLink="/inventario">Producto Vendido</a></li>
+           <li><a routerLink="/cotizaciones">Cotizaciones</a></li>
+            <li><a routerLink="/vercotizaciones"> Ver Cotizaciones</a></li>
+                      <li><a routerLink="/verfacturas"> Ver Facturas</a></li>
+
+      <li><a (click)="logout()" background-color="red">Cerrar Sesión</a></li>
+    </ul>
+  </nav>
+</header>
+
+<div class="dashboard-layout">
+  <!-- SIDEBAR -->
+  <aside class="dashboard-sidebar">
+    <div class="sidebar-logo">
+      <span class="logo-mark">MG</span>
+      <span class="logo-text">MEGAREPUESTOS</span>
+    </div>
+  </aside>
+
+  <!-- CONTENIDO PRINCIPAL -->
+  <main class="dashboard-main">
+    <header class="dashboard-header">
+      <div>
+        <h1 class="dashboard-title">Repuestos</h1>
+        <p class="dashboard-subtitle"> Lista Repuestos.</p>
+      </div>
+    </header>
+<section class="dashboard-grid">
+      <div class="dashboard-column">
+        <section class="dashboard-card">
+          <h2 class="dashboard-card-title">Lista de Repuestos</h2>
+          <div style="padding: 20px;">
+           
+<main>
+    <router-outlet></router-outlet>
+</main>
+<div class="container mt-4" >
+  <h2 class="mb-3">Buscador de Productos</h2>
+  <div class="row g-2 mb-4">
+    <div class="col-12 col-md-8">
+      <input  class="form-control" type="text" [formControl]="search" placeholder="Buscar..." />
+    </div>
+    <div class="col-12 col-md-4 d-grid">
+        <button class="btn-primary" (click)="onBuscar()">Buscar</button>
+    </div>
+  </div>
+ 
+
   
-  <div class="container-fluid" >
-            <div class="row mt-3">
-                <div class="col-md-4 offset-md-4">
-                    <div class="d-grid mx-auto">
+  <div class="row mb-4">
+    <div class="col-12 col-md-6 d-grid mb-2 mb-md-0">
                       <button class="btn btn-outline-info" type="button" id="btnCarrito"  data-bs-toggle="modal" data-bs-target="#modalRepuestoCarrito">
                                 <svg xmlns="http://www.w3.org/2000/svg" 
                                 class="icon icon-tabler icon-tabler-shopping-cart-filled" 
@@ -15,13 +64,17 @@
                                 stroke="#fd0061" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                 <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
                                 <path d="M6 2a1 1 0 0 1 .993 .883l.007 .117v1.068l13.071 .935a1 1 0 0 1 .929 1.024l-.01 .114l-1 7a1 1 0 0 1 -.877 .853l-.113 .006h-12v2h10a3 3 0 1 1 -2.995 3.176l-.005 -.176l.005 -.176c.017 -.288 .074 -.564 .166 -.824h-5.342a3 3 0 1 1 -5.824 1.176l-.005 -.176l.005 -.176a3.002 3.002 0 0 1 1.995 -2.654v-12.17h-1a1 1 0 0 1 -.993 -.883l-.007 -.117a1 1 0 0 1 .883 -.993l.117 -.007h2zm0 16a1 1 0 1 0 0 2a1 1 0 0 0 0 -2zm11 0a1 1 0 1 0 0 2a1 1 0 0 0 0 -2z" stroke-width="0" fill="currentColor" />
-                                </svg> 
+                                </svg> Carrito
                               </button>
+        
+                            </div>
+
+                      <div class="col-12 col-md-6 d-grid">
                       <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalRepuesto" (click)="openModal()"> Añadir Repuesto</button>
                     </div>
                 </div>
-            </div>
-  </div>
+           
+
 
   <div #modalRepuesto
   id="modalRepuesto"
@@ -46,51 +99,51 @@
 
 
         <app-entrada
-          id="Codigo"
+          id="codigo"
           iconName="fa fa-barcode"
           inputType="text"
           placeHolder="Codigo"
-          [(value)]="Codigo"
+          [(value)]="codigo"
         ></app-entrada>
 
         <app-entrada
-          id="Nombre"
+          id="nombre"
           iconName="fa fa-tag"
           inputType="text"
           placeHolder="Nombre"
-          [(value)]="Nombre"
+          [(value)]="nombre"
         ></app-entrada>
 
         <app-entrada
-          id="Marca"
+          id="marca"
           iconName="fa fa-industry"
           inputType="text"
           placeHolder="Marca"
-          [(value)]="Marca"
+          [(value)]="marca"
         ></app-entrada>
 
         <app-entrada
           id="Cantidad"
           iconName="fa fa-sort-numeric-up"
           inputType="number"
-          placeHolder="Cantidad"
+          placeHolder="cantidad_disponible"
           [(value)]="Cantidad"
         ></app-entrada>
 
         <app-entrada
-          id="Precio"
+          id="precio"
           iconName="fa fa-dollar-sign"
           inputType="number"
           placeHolder="Precio"
-          [(value)]="Precio"
+          [(value)]="precio"
         ></app-entrada>
 
         <app-entrada
-          id="Estante"
+          id="estante"
           iconName="fa fa-archive"
           inputType="number"
           placeHolder="Estante"
-          [(value)]="Estante"
+          [(value)]="estante"
         ></app-entrada>
 
         <div class="modal-footer">
@@ -112,17 +165,18 @@
   </div>
 </div>
 
-<div>
+
+
       <h2>Lista de Repuestos</h2>
 
-<table >
-  <thead>
+<table class="tabla">
+  <thead >
     <tr >
       <th>ID</th>  
       <th>Código</th>
       <th>Nombre</th>
        <th>Marca</th>
-      <th>Cantidad</th>
+      <th>Cantidad Disponible</th>
       <th>Precio</th> 
       <th>Estante</th>  
       <th>Acciones</th>
@@ -130,23 +184,26 @@
   </thead>
   <tbody>
     <tr *ngFor="let repuesto of resultados">
-      <td>{{ repuesto.id }}</td>
-       <td>{{ repuesto.Codigo }}</td>
-      <td>{{ repuesto.Nombre }}</td>
-       <td>{{ repuesto.Marca }}</td>
-       <td>{{ repuesto.Cantidad }}</td>
-      <td>{{ repuesto.Precio }}</td>
-      <td>{{ repuesto.Estante }}</td>
-     
-      <td >   
-  
+      <td data-label="ID">{{ repuesto.id }}</td>
+       <td data-label="Código">{{ repuesto.codigo }}</td>
+      <td data-label="Nombre">{{ repuesto.nombre }}</td>
+       <td data-label="Marca">{{ repuesto.marca }}</td>
+       <td data-label="Cantidad Disponible">{{ repuesto.cantidad }}</td>
+      <td data-label="Precio">{{ repuesto.precio }}</td>
+      <td data-label="Estante">{{ repuesto.estante }}</td>
+      <td>   
 
-        <button class="btn btn-danger" (click)="deleteRepuesto(repuesto.id)"> Eliminar Registro</button>
-         <button type="button" class="btn btn-dark" (click)="Carrito(repuesto.id)">Agregar al Carrito L<span class="badge text-bg-secondary precio-producto"></span></button>
+         <button type="button" class="btn-dark btn-sm mb-1" (click)="Carrito(repuesto.id,repuesto)">Agregar al Carrito L<span class="badge text-bg-secondary precio-producto"></span></button>
 
       
-         <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalRepuestoActualizar" (click)="editarRepuesto(repuesto)">Editar Registro</button>
-          
+         <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalRepuestoActualizar" (click)="editarRepuesto(repuesto)">Editar Registro</button>
+          <button
+                        type="button"
+                        class="btn btn-danger btn-sm"
+                        (click)="deleteRepuestoCarrito(repuesto.id)"
+                      >
+                        Eliminar Registro
+                      </button>
 
         </td>
       
@@ -156,6 +213,7 @@
   </tbody>
 </table>
 
+</div>
 <p *ngIf="resultados.length === 0">No hay usuarios disponibles.</p>
 <div *ngIf="errorMessage" class="error-message">
     {{ errorMessage }}
@@ -166,7 +224,7 @@
 
 
 
-<div class="container"  >
+<div>
  
  
  <div #modalRepuestoActualizar 
@@ -192,32 +250,32 @@
 
 
         <app-entrada
-          id="Codigo"
+          id="codigo"
           iconName="fa fa-barcode"
           inputType="text"
           placeHolder="Codigo"
          
-          [(value)]="Codigo"
+          [(value)]="codigo"
         ></app-entrada>
 
         <app-entrada
-          id="Nombre"
+          id="nombre"
           iconName="fa fa-tag"
           inputType="text"
           placeHolder="Nombre"
-          [(value)]="Nombre"
+          [(value)]="nombre"
         ></app-entrada>
 
         <app-entrada
-          id="Marca"
+          id="marca"
           iconName="fa fa-industry"
           inputType="text"
           placeHolder="Marca"
-          [(value)]="Marca"
+          [(value)]="marca"
         ></app-entrada>
 
         <app-entrada
-          id="Cantidad"
+          id="cantidad"
           iconName="fa fa-sort-numeric-up"
           inputType="number"
           placeHolder="Cantidad"
@@ -225,19 +283,19 @@
         ></app-entrada>
 
         <app-entrada
-          id="Precio"
+          id="precio"
           iconName="fa fa-dollar-sign"
           inputType="number"
           placeHolder="Precio"
-          [(value)]="Precio"
+          [(value)]="precio"
         ></app-entrada>
 
         <app-entrada
-          id="Estante"
+          id="estante"
           iconName="fa fa-archive"
           inputType="number"
           placeHolder="Estante"
-          [(value)]="Estante"
+          [(value)]="estante"
         ></app-entrada>
 
         <div class="modal-footer">
@@ -259,89 +317,172 @@
   </div>
 </div>
 
-<div class="container"  >
- 
- 
- <div #modalRepuestoCarrito 
-  id="modalRepuestoCarrito" 
+<div
+  #modalRepuestoCarrito
+  id="modalRepuestoCarrito"
   class="modal fade"
   tabindex="-1"
-
+  aria-hidden="true"
 >
-  <div class="modal-dialog" >
-    <div class="modal-content"  >
+  <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
 
+      <!-- HEADER -->
       <div class="modal-header">
-        <h5 class="modal-title"> Carrito Repuesto</h5>
+        <h5 class="modal-title">🛒 Carrito de Repuestos</h5>
         <button
           type="button"
           class="btn-close"
           data-bs-dismiss="modal"
-          aria-label="Close"
         ></button>
       </div>
-      
-  <div >
-    <form (ngSubmit)="addInv()" class="modal-body" >
 
+      <!-- BODY -->
+      <form >
 
-        <div  *ngIf="calcularCarrito()" class="container-fluid">
-      <h2>Lista de Repuestos</h2>
+        <div class="modal-body">
 
-        <table id="table2">
-        <thead>
-        <tr >
-      <th>ID</th>  
-      <th>Código</th>
-      <th>Nombre</th>
-       <th>Marca</th>
-      <th>Cantidad</th>
-      <th>Precio</th> 
-      <th>Estante</th>  
-      <th>Acciones</th>
-      </tr>
-      </thead>
-        <tbody>
-        <tr *ngFor="let producto of carrito">
-      <td>{{ producto.id }}</td>
-       <td>{{ producto.Codigo }}</td>
-      <td>{{ producto.Nombre }}</td>
-       <td>{{ producto.Marca }}</td>
-       <td>{{ producto.Cantidad }}</td>
-      <td>{{ producto.Precio }}</td>
-      <td>{{ producto.Estante }}</td>
-     
-        <td >   
-  
+          <div *ngIf="carrito.length > 0">
 
-        <button class="btn btn-danger" (click)="deleteRepuestoCarrito(producto.id)"> Eliminar Registro</button>
+            <div class="table-responsive">
+              <table class="table table-bordered table-striped align-middle">
+                <thead class="table-light">
+                  <tr>
+                    <th>ID</th>
+                    <th>Código</th>
+                    <th>Nombre</th>
+                    <th>Marca</th>
+                    <th style="width: 160px;">Cantidad</th>
+                    <th>Precio</th>
+                    <th>Estante</th>
+                    <th>Acciones</th>
+                  </tr>
+                </thead>
 
-        </td>
-      
+                <tbody>
+                  <tr *ngFor="let producto of carrito">
+                    <td>{{ producto.id }}</td>
+                    <td>{{ producto.codigo }}</td>
+                    <td>{{ producto.nombre }}</td>
+                    <td>{{ producto.marca }}</td>
+
+                    <td>
+                      <input
+                        type="number"
+                        class="form-control form-control-sm"
+                        [(ngModel)]="producto.cantidad"
+                        name="cantidad{{producto.id}}"
+                        [min]="1"
+                        [max]="producto.cantidad_disponible"
+                      />
+                    </td>
+
+                    <td>{{ producto.precio }}</td>
+                    <td>{{ producto.estante }}</td>
+
+                    <td class="text-nowrap">
+                      <button
+                        type="button"
+                        class="btn btn-danger btn-sm"
+                        (click)="deleteRepuestoCarrito(producto.id)"
+                      >
+                        Eliminar
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <main class="dashboard-main">
+
+    <section class="dashboard-grid">
+      <div class="dashboard-column">
+        <section class="dashboard-card">
+          <h2 class="dashboard-card-title" style="color: white;" >Crear Factura</h2>
+          <div style="padding: 20px;">
+            <label style="color: white;">Cliente:</label>
+            <input [(ngModel)]="cliente" name="cliente" style="padding: 8px; width: 300px; margin-bottom: 20px;" />
+
+            <!-- Dropdown items -->
+            <div style="position: relative; width: 300px;">
+              <button (click)="toggleDropdown()" style="width: 100%; padding: 10px; cursor: pointer;">
+                <h3><strong>Seleccione los items</strong></h3>
+              </button>
+
+              <div *ngIf="dropdownAbierto"
+                style="position: absolute; top: 100%; left:0; width:100%; max-height:200px; overflow-y:auto; border:1px solid #ccc; background-color:#946b6bff; z-index:10; padding:10px;">
+                
+                <div *ngFor="let item of carrito" style="margin-bottom:10px;">
+                  <label>
+                    <input type="checkbox"
+                           [checked]="isSeleccionado(item)"
+                           (change)="toggleItem(item)" />
+                    {{item.nombre}} - ${{item.precio}}
+                  </label>
+
+                  <input *ngIf="isSeleccionado(item)"
+                         type="number"
+                         min="1"
+                         [value]="getCantidad(item)"
+                         (input)="cambiarCantidad(item.id, $any($event.target).value)"
+                         style="margin-left:10px; width:60px;" />
+                </div>
+
+              </div>
+            </div>
+
+            <!-- Totales -->
+            <div style="margin-top:20px;">
+              <h3 style="color: white;">Subtotal: {{subtotal.toFixed(2)}} L</h3>
+              <h3 style="color: white;">Descuento:</h3>
+              <input type="number" [(ngModel)]="Descuento" name="descuento" placeholder="Descuento" style="margin-left:10px; width:100px;" />
+              <h2 style="color: white;">Total: {{total.toFixed(2)}} L</h2>
+            </div>
+
+           
+
+          </div>
+        </section>
+      </div>
+    </section>
+
+  </main>
+           
+
+          </div>
+
+          <!-- CARRITO VACÍO -->
         
-         
-        </tr>
-          </tbody>
-        </table>
 
-        <p>Total: {{ Total }} Lps</p>
+        </div>
 
+        <!-- FOOTER -->
         <div class="modal-footer">
-          <button type="submit" class="btn btn-success">
-            <i class="fa fa-floppy-disk"></i> Guardar
-          </button>
+          <button type="button" class="btn btn-success"
+          (click)="guardarCotizacion(); addInv()"
+          style="margin-top:20px; padding:12px 10px; background:#007bff; color:white; border:none; cursor:pointer; border-radius:6px;">
+              Realizar factura + PDF
+            </button>
 
           <button
             type="button"
-            class="btn btn-danger"
+            class="btn btn-danger" style="margin-top:20px; padding:12px 10px;"
             data-bs-dismiss="modal"
           >
-            <i class="fa fa-circle-xmark"></i> Cerrar
+            Cerrar
           </button>
         </div>
+
+      </form>
     </div>
-    </form>
-    
-   
   </div>
+</div>  
+        </div>
+      </div>
+      </section>
+    </div>
+</section>
+  </main>
+  
 </div>

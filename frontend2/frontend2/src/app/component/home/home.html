@@ -1,1 +1,27 @@
-<h1><p>Bienvenido!</p></h1>
+<div class="dashboard-layout">
+<aside class="dashboard-sidebar">
+    <div class="sidebar-logo">
+      <span class="logo-mark">MG</span>
+      <span class="logo-text"> BIENVENIDO A MEGAREPUESTOS</span>
+    </div>
+  </aside>
+<header class="header">
+  <nav class="nav">
+    
+    <ul class="nav-links">
+      <li><a routerLink="/home">MegaRepuestos</a></li>
+      <li><a routerLink="/repuestos">Repuestos</a></li>
+      <li><a routerLink="/inventario">Producto Vendido</a></li>
+       <li><a routerLink="/cotizaciones">Cotizaciones</a></li>
+       <li><a routerLink="/vercotizaciones"> Ver Cotizaciones</a></li>
+                 <li><a routerLink="/verfacturas"> Ver Facturas</a></li>
+
+      <li><a (click)="logout()" background-color="red">Cerrar Sesión</a></li>
+    </ul>
+  </nav>
+</header>
+<main>
+    <router-outlet></router-outlet>
+    <h1 style="text-align: center; padding-top: 30px;"> Lo mejor en Repuestos! </h1>
+</main>
+</div>

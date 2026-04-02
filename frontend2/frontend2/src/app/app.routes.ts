@@ -8,30 +8,56 @@ import { Conversor } from './component/convertir/conversor';
 import { Ventas } from './component/ventas/ventas';
 import { Repuestos } from './component/repuestos/repuestos';
 import { Inventario } from './component/inventario/inventario';
-
+import { Cotizaciones } from './component/cotizaciones/cotizaciones';
+import { firebaseAuthGuard } from './component/guards/firebase-auth-guard';
+import { supabaseAuthGuard } from './component/guards/supabase-auth-guard';
+import { Vercotizaciones } from '../app/component/vercotizaciones/vercotizaciones';
 export const routes: Routes = [
-    { path: '', redirectTo: 'login', pathMatch: 'full' },
-    { path: 'login', component: Login },
-    { path: 'users', component: Users },
-    { path: 'home', component: Home },
-    { path: 'vehiculos', component: Vehiculos },
-    { path: 'clientes', component: Clientes },
-    { path:'convertir/:moneda', component: Conversor},
-    { path: 'vehiculos', component: Vehiculos },
-    { path: 'vehiculos/eliminar/:id', component: Vehiculos },
-    {path: 'vehiculos/actualizar/:id', component: Vehiculos },
-    {path: 'repuestos/eliminar/:id', component:Repuestos},
-    {path: 'ventas', component:Ventas},
-    {path: 'repuestos', component: Repuestos},
-    {path: 'repuestos/actualizar/:id', component:Repuestos},
-    {path: 'repuestos/agregar/:id', component:Repuestos},
-    {path: 'repuestos/inventario', component:Inventario},
-    {path: 'repuestos/inventario/todos', component:Inventario},
-    {path: 'repuestos/inventario/agregar-compra', component:Repuestos},
-    {path: 'repuestos/:id', component: Repuestos},
-    {path: 'repuestos/buscar', component: Repuestos},
-        {path: 'repuestos/todos', component:Repuestos},
-         {path: 'repuestos/registrar', component:Repuestos},
+    
+         {
+    path: 'home',
+    canActivate: [supabaseAuthGuard],
+    loadComponent: () =>
+      import('../app/component/home/home').then(m => m.Home)
+  },
+  {
+    path: 'inventario',
+    canActivate: [supabaseAuthGuard],
+    loadComponent: () =>
+      import('../app/component/inventario/inventario').then(m => m.Inventario)
+  },
+  
+  {
+    path: 'login',
+    loadComponent: () =>
+      import('../app/component/login/login').then(m => m.Login)
+  },
+  {
+    path: 'repuestos',
+    canActivate: [supabaseAuthGuard],
+    loadComponent: () =>
+      import('../app/component/repuestos/repuestos').then(m => m.Repuestos)
+  },
+  {
+    path: 'cotizaciones',
+    canActivate: [supabaseAuthGuard],
+    loadComponent: () =>
+      import('../app/component/cotizaciones/cotizaciones').then(m => m.Cotizaciones)
+  },
+  {
+    path: 'verfacturas',
+    canActivate: [supabaseAuthGuard],
+    loadComponent: () =>
+      import('../app/component/verfacturas/verfacturas').then(m => m.Verfacturas)
+  },
+  {
+  path: 'vercotizaciones',
+  canActivate:[supabaseAuthGuard],
+  loadComponent: () =>
+    import('../app/component/vercotizaciones/vercotizaciones')
+      .then(m => m.Vercotizaciones)
+},
+  { path: '**', redirectTo: 'login' }
 
   ];
  

@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LoginS } from '../../services/loginS';
 import {alertaSuccess,alertaError,alertaWarning} from '../alertas/alertas'
+import { supabase } from '../../services/supabase';
 @Component({
   selector: 'app-login',
   standalone:true,
@@ -12,45 +13,44 @@ import {alertaSuccess,alertaError,alertaWarning} from '../alertas/alertas'
   styleUrl: './login.scss'
 })
 export class Login {
-Nombre: string = '';
-  Password: string = '';
+email: string = '';
+  password: string = '';
+  email1: string = '';
+  password1: string = '';
   errorMessage: string = '';
-
+  
+  mensaje = '';
   constructor(private authLogin: LoginS,
     private router: Router
   ) {}
 
   login() {
-    const credentials = {
-      Nombre: this.Nombre,
-      Password: this.Password
-    };
-    this.errorMessage = '';
-    this.authLogin.login(credentials).subscribe({
-      
-      next: (response) => {
-        console.log('Login exitoso:', response);
-        alertaSuccess('Login Exitoso');
-        localStorage.setItem('token', response.token);
-        this.router.navigate(['/home']);
-         
-      },
-      error: (error) => {
-        console.error('Error de login:', error);
-        alertaError('Credenciales invalidas')
-        if (error.status===404) {
-          this.errorMessage = error.error?.message || 'Usuario no encontrado';
-          alertaError('Usuario no encontrado');
+    this.authLogin.login({ email: this.email, password: this.password })
+      .subscribe({
+        next: (data) => {
+          console.log('Login exitoso:', data);
+        this.router.navigate(['/home'])
+        alertaSuccess('Login exitoso');
+  
+    },
+        error: (err) => {
+          console.error('Login falló:', err);
+          this.mensaje = 'Usuario o contraseña incorrectos';
         }
-        // Detecta si viene un mensaje personalizado del backend
-        else if (error.status === 401 || error.status===403) {
-          this.errorMessage = error.error?.message || 'Credenciales incorrectas.';
-          alertaError('Credenciales incorrectas');
-        } else {
-          this.errorMessage = 'Ocurrió un error inesperado. Intenta de nuevo.';
-        }
-      }
+      });
+  }
 
+  register() {
+    this.authLogin.register(this.email1, this.password1).subscribe({
+      next: ({ data, error }) => {
+        if (error) {
+          this.mensaje = error.message;
+        } else {
+          this.mensaje = 'Registro exitoso. Revisa tu correo.';
+        }
+      },
+      error: err => this.mensaje = err.message
     });
   }
 }
+

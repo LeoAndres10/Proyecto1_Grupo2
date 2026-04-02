@@ -24,7 +24,7 @@ export class Entrada {
     if (this.inputType === 'number') {
       val = input.value === '' ? null : Number(input.value);
     }
-
+    this.value=val;
     this.valueChange.emit(val)
 }
 }

@@ -6,10 +6,14 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Entrada } from '../entrada/entrada';
 import { BehaviorSubject } from 'rxjs';
+import { supabase } from '../../services/supabase';
+import { Inventario as InventarioService } from '../../services/inventario';
+import { App } from '../../app';
+import { RouterModule, RouterOutlet } from '@angular/router';
 @Component({
   selector: 'app-inventario',
   standalone:true,
-  imports: [FormsModule,CommonModule,ReactiveFormsModule],
+  imports: [FormsModule,CommonModule,ReactiveFormsModule, RouterModule,RouterOutlet],
   templateUrl: './inventario.html',
   styleUrls: ['./inventario.css']
 })
@@ -19,24 +23,33 @@ private inventarioSource = new BehaviorSubject<any[]>([]);
   inventario$ = this.inventarioSource.asObservable();
  errorMessage: string = '';
    id !: Number;
-   datos: any[]= [];
+   datos: any[] = [];
    Total: number| null= null;
-constructor( private serviceI: Repuesto){}
+constructor(  protected serviceI: Repuesto, protected serviceE: App, protected serviceInventario: InventarioService){}
 
   ngOnInit() {
-  this.serviceI.carrito$.subscribe({
-    next: (items) => this.inventarioSource.next(items),
-    error: (err) => this.errorMessage = err
-  });
+  
 
   this.obtenerInventario();
 }
   
+deleteInventario(id: string): void{
+    this.errorMessage = '';
+    this.serviceInventario.eliminarRepuestoI(id).subscribe({
+
+      next: () => {
+        this.datos = this.datos.filter(r => r.id !== id);
+        alertaSuccess('Se ha eliminado correctamente');},    
+
+ 
+      error: (error) => console.error('Error al eliminar repuesto:', error)
+    });
+};
   calcularCarrito(){
      let total=0;
   
-    for (let i = 0; i < this.datos.length; i++) {
-       const precio = Number(this.datos[i].precio_unitario);
+    for (let i = 0; i < this.datos!.length; i++) {
+       const precio = Number(this.datos![i].precio_unitario);
        
     
     if (!isNaN(precio)) {
@@ -52,28 +65,24 @@ constructor( private serviceI: Repuesto){}
   }
   
   
-obtenerInventario():void{
+  obtenerInventario() {
 
-    this.serviceI.getInventario().subscribe({
-      next: (response) => {
-        this.datos = response.data;
-        this.calcularCarrito();
-      },
-      error: (error) => {
-        console.error('Error al obtener vehiculos:', error);
-
-        if (error.status === 401) {
-          this.errorMessage = error.error?.message || 'Credenciales incorrectas.';
-        } else {
-          this.errorMessage = 'Ocurrió un error inesperado. Intenta de nuevo.';
-        }
-
+   this.serviceI.getTodos().subscribe({
+      next: ({ data, error }) => {
+       
+        console.log('Datos de inventario:', data);
+          this.datos = data;
+         
+        
       }
     });
 
   }
-}
 
+  logout() {
+    this.serviceE.logout();
+}
+} 
 
 
 

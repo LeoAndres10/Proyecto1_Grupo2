@@ -1,34 +1,47 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import {RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
-
+ import { supabase } from '../app/services/supabase'; 
 import { Repuestos } from './component/repuestos/repuestos';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
+import { alertaSuccess, alertaWarning } from './component/alertas/alertas';
+
+import { firebaseConfig } from '../enviroment';
+
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet,CommonModule, RouterModule,ReactiveFormsModule],
+  standalone:true,
+  imports: [RouterOutlet,CommonModule,RouterModule,ReactiveFormsModule],
   templateUrl: './app.html',
   styleUrl: './app.scss'
 })
 
 
 export class App {
-  
-  constructor(private router: Router) {}
+    private router = inject(Router);
+  constructor() {}
 
-  isLoggedIn(): boolean {
-    return !!localStorage.getItem('token'); // Verifica si hay un token
-  }
+ 
 
   logout() {
-    localStorage.removeItem('token'); // Elimina el token
-    this.router.navigate(['/login']); // Redirige al login
+
+supabase.auth.signOut()
+    .then(() => {
+      console.log('Sesión cerrada');
+      // Opcional: limpiar tokens o datos locales
+      localStorage.clear();
+      // Redirigir a login
+      alertaSuccess('Sesión cerrada');
+     this.router.navigate(['/login']); // Redirige al login
+    })
+    .catch(err => console.error('Error cerrando sesión:', err));
+ 
   }
 }
 

@@ -1,0 +1,100 @@
+
+<header class="header">
+  <nav class="nav">
+    
+    <ul class="nav-links">
+      <li><a routerLink="/home">MegaRepuestos</a></li>
+      <li><a routerLink="/repuestos">Repuestos</a></li>
+      <li><a routerLink="/inventario">Producto Vendido</a></li>
+       <li><a routerLink="/cotizaciones">Cotizaciones</a></li>
+       <li><a routerLink="/vercotizaciones"> Ver Cotizaciones</a></li>
+                 <li><a routerLink="/verfacturas"> Ver Facturas</a></li>
+
+      <li><a (click)="logout()" background-color="red">Cerrar Sesión</a></li>
+    </ul>
+  </nav>
+</header>
+<main>
+    <router-outlet></router-outlet>
+</main>
+
+<div class="dashboard-layout">
+  <!-- SIDEBAR -->
+  <aside class="dashboard-sidebar">
+    <div class="sidebar-logo">
+      <span class="logo-mark">MG</span>
+      <span class="logo-text">MEGAREPUESTOS</span>
+    </div>
+  </aside>
+
+  <!-- CONTENIDO PRINCIPAL -->
+  <main class="dashboard-main">
+    <header class="dashboard-header">
+      <div>
+        <h1 class="dashboard-title">Crear Cotizaciones</h1>
+        <p class="dashboard-subtitle">Crea cotizaciones con su cliente.</p>
+      </div>
+    </header>
+
+    <section class="dashboard-grid">
+      <div class="dashboard-column">
+        <section class="dashboard-card">
+          <h2 class="dashboard-card-title">Crear Cotización</h2>
+          <div style="padding: 20px;">
+            <label>Cliente:</label>
+            <input [(ngModel)]="cliente" style="padding: 8px; width: 300px; margin-bottom: 20px;" />
+
+            <!-- Dropdown items -->
+            <div style="position: relative; width: 300px;">
+              <button (click)="toggleDropdown()" style="width: 100%; padding: 10px; cursor: pointer;">
+                <h3><strong>Seleccione los items</strong></h3>
+              </button>
+
+              <div *ngIf="dropdownAbierto"
+                style="position: absolute; top: 100%; left:0; width:100%; max-height:200px; overflow-y:auto; border:1px solid #ccc; background-color:#946b6bff; z-index:10; padding:10px;">
+                <div class="row g-2 mb-4">
+        <div class="col-12 col-md-8">
+      <input  class="form-control" type="text" [formControl]="search" placeholder="Buscar..." />
+    </div>
+    <div class="col-12 col-md-4 d-grid">
+        <button class="btn-primary" (click)="onBuscar()">Buscar</button>
+    </div>
+  </div>
+    <div *ngFor="let item of ItemsDisponibles" style="margin-bottom:10px;">
+                  <label>
+                    <input type="checkbox"
+                           [checked]="isSeleccionado(item)"
+                           (change)="toggleItem(item)" />
+                    {{item.nombre}} - ${{item.precio}}
+                  </label>
+
+                  <input *ngIf="isSeleccionado(item)"
+                         type="number"
+                         min="1"
+                         [value]="getCantidad(item)"
+                         (input)="cambiarCantidad(item.id, $any($event.target).value)"
+                         style="margin-left:10px; width:60px;" />
+                </div>
+
+              </div>
+            </div>
+
+            <!-- Totales -->
+            <div style="margin-top:20px;">
+              <h3>Subtotal: {{subtotal.toFixed(2)}} L</h3>
+              <input type="number" [(ngModel)]="Descuento" placeholder="Descuento" style="margin-left:10px; width:100px;" />
+              <h2>Total: {{total.toFixed(2)}} L</h2>
+            </div>
+
+            <button (click)="guardarCotizacion()"
+                    style="margin-top:20px; padding:12px 20px; background:#007bff; color:white; border:none; cursor:pointer; border-radius:6px;">
+              Guardar Cotización + PDF
+            </button>
+
+          </div>
+        </section>
+      </div>
+    </section>
+
+  </main>
+</div>

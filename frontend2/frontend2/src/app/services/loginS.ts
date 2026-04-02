@@ -1,17 +1,42 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { createClient } from '@supabase/supabase-js';
+import { from, Observable } from 'rxjs';
+import { supabase } from './supabase';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoginS {
 
-private apiUrl = 'https://proyecto1-3m7h.onrender.com/api'; // Cambia esto según tu backend
+ 
 
-  constructor(private http: HttpClient) {}
+  constructor() {}
 
-  login(userData: { Nombre: string; Password: string }): Observable<any> {
-    return this.http.post(`${this.apiUrl}/login`, userData);
+  // Login con Supabase
+   login(userData: { email: string; password: string }): Observable<any> {
+    const { email: email, password: password } = userData;
+
+    return from(
+      supabase.auth.signInWithPassword({ email, password })
+        .then(({ data, error }) => {
+          if (error) throw error;
+          return data; // data contiene session y user
+        })
+    );
+  }
+
+  // Registro opcional
+  register(email: string, password: string): Observable<any> {
+    return from(
+      supabase.auth.signUp({
+        email,
+        password
+      })
+    );
+  }
+
+  // Logout
+  logout(): Observable<any> {
+    return from(supabase.auth.signOut());
   }
 }

@@ -3,23 +3,23 @@ const {db} = require('../config/db');
 
 const Repuesto = db.define('repuestos', {
    
-    Codigo: {
+    codigo: {
         type: DataTypes.STRING
     },
 
-    Nombre: {
+    nombre: {
         type: DataTypes.STRING
     },
-    Marca: {
+    marca: {
         type:DataTypes.STRING
     },
-    Cantidad: {
+    cantidad: {
         type:DataTypes.INTEGER
     },
-    Precio: {
+    precio: {
         type: DataTypes.INTEGER
     },
-    Estante: {
+    estante: {
         type:DataTypes.INTEGER
     }
    

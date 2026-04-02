@@ -1,0 +1,92 @@
+
+<header class="header">
+  <nav class="nav">
+    
+    <ul class="nav-links">
+      <li><a routerLink="/home">MegaRepuestos</a></li>
+      <li><a routerLink="/repuestos">Repuestos</a></li>
+      <li><a routerLink="/inventario">Producto Vendido</a></li>
+        <li><a routerLink="/cotizaciones">Cotizaciones</a></li>
+         <li><a routerLink="/vercotizaciones"> Ver Cotizaciones</a></li>
+      <li><a (click)="logout()" background-color="red">Cerrar Sesión</a></li>
+    </ul>
+  </nav>
+</header>
+
+
+
+  <div class="dashboard-layout">
+  <!-- SIDEBAR -->
+  <aside class="dashboard-sidebar">
+    <div class="sidebar-logo">
+      <span class="logo-mark">MG</span>
+      <span class="logo-text">MEGAREPUESTOS</span>
+    </div>
+  </aside>
+
+  <!-- CONTENIDO PRINCIPAL -->
+  <main class="dashboard-main">
+    <header class="dashboard-header">
+      <div>
+        <h1 class="dashboard-title">Lista de Facturas</h1>
+        <p class="dashboard-subtitle"></p>
+      </div>
+    </header>
+
+    <section class="dashboard-grid">
+      <div class="dashboard-column">
+        <section class="dashboard-card">
+          <h2 class="dashboard-card-title">Lista de Facturas</h2>
+          <div style="padding: 20px;">
+           
+
+<main>
+    <router-outlet></router-outlet>
+</main>
+<div class="container">
+    <h2>VER FACTURAS</h2>
+    <h2 class="mb-3">Buscador de Facturas Por Nombre</h2>
+  <div class="row g-2 mb-4">
+    <div class="col-12 col-md-8">
+      <input  class="form-control" type="text" [formControl]="search" placeholder="Buscar..." />
+    </div>
+    <div class="col-12 col-md-4 d-grid">
+        <button class="btn-primary" (click)="onBuscar()">Buscar</button>
+    </div>
+  </div>
+    <table class="tabla">
+      <thead>
+        <th>NUMERO</th>
+        <th>CLIENTE</th>
+        <th>CANTIDAD</th>
+        <th>TOTAL</th>
+        <th>FECHA</th>
+        <th>ACCIONES</th>
+      </thead>
+  <tr *ngFor="let cot of cotizaciones$ | async" >
+    <td data-label="NUMERO:">{{ cot.numero }}</td>
+    <td data-label="CLIENTE:">{{ cot.cliente }}</td>
+
+    <td data-label="CANTIDAD:">{{cot.cantidad}}</td>
+    <td data-label="TOTAL:">L. {{ cot.total }}</td>
+    <td data-label="FECHA:">{{ cot.fecha }}</td>
+    <td data-label="ACCIONES:"><button
+  class="btn btn-sm btn-outline-primary"
+  (click)="verPDF(cot.archivoURL)">
+  📄 Ver Factura
+</button></td>
+  </tr>
+</table> 
+
+
+</div>
+</div>
+        </section>
+
+    </div>
+    </section>
+
+  </main>
+</div>
+
+

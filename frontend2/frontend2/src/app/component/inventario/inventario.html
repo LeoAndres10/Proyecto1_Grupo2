@@ -1,29 +1,84 @@
 
+<header class="header">
+  <nav class="nav">
+    
+    <ul class="nav-links">
+      <li><a routerLink="/home">MegaRepuestos</a></li>
+      <li><a routerLink="/repuestos">Repuestos</a></li>
+      <li><a routerLink="/inventario">Producto Vendido</a></li>
+        <li><a routerLink="/cotizaciones">Cotizaciones</a></li>
+         <li><a routerLink="/vercotizaciones"> Ver Cotizaciones</a></li>
+                   <li><a routerLink="/verfacturas"> Ver Facturas</a></li>
 
-<div class="container-fluid">
+      <li><a (click)="logout()" background-color="red">Cerrar Sesión</a></li>
+    </ul>
+  </nav>
+</header>
+
+
+
+  <div class="dashboard-layout">
+  <!-- SIDEBAR -->
+  <aside class="dashboard-sidebar">
+    <div class="sidebar-logo">
+      <span class="logo-mark">MG</span>
+      <span class="logo-text">MEGAREPUESTOS</span>
+    </div>
+  </aside>
+
+  <!-- CONTENIDO PRINCIPAL -->
+  <main class="dashboard-main">
+    <header class="dashboard-header">
+      <div>
+        <h1 class="dashboard-title">Lista de Ventas</h1>
+        <p class="dashboard-subtitle"></p>
+      </div>
+    </header>
+
+    <section class="dashboard-grid">
+      <div class="dashboard-column">
+        <section class="dashboard-card">
+          <h2 class="dashboard-card-title">Ventas</h2>
+          <div style="padding: 20px;">
+           
+
+<main>
+    <router-outlet></router-outlet>
+</main>
+<div class="container">
       <h2>Lista de Vendidos</h2>
-
-<table >
+<div class="resumen">
+    <span>Total vendidos:</span>
+    <strong>{{ calcularCarrito() }} Lps</strong>
+  </div>
+<table class="tabla">
   <thead>
     <tr >
       <th>ID</th>  
       <th>Código</th>
       <th>Nombre</th>
        <th>Marca</th>
-      <th>Precio</th> 
+        <th>Cantidad Vendida</th> 
+      <th>Precio Unitario</th>
+      <th>Total</th>
       <th>Fecha de Compra</th>  
-       <th><p>Total: {{ Total }} Lps</p></th>
+      <th>Acciones</th>
       
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let dato of datos">
-      <td>{{ dato.repuesto_id }}</td>
-       <td>{{ dato.codigo_repuesto }}</td>
-      <td>{{ dato.nombre_repuesto }}</td>
-       <td>{{ dato.marca_repuesto }}</td>
-       <td>{{ dato.precio_unitario }}</td>
-      <td>{{ dato.fecha_compra }}</td>
+      <td data-label="ID">{{ dato.repuesto_id }}</td>
+       <td data-label="Código">{{ dato.codigo_repuesto }}</td>
+      <td data-label="Nombre">{{ dato.nombre_repuesto }}</td>
+       <td data-label="Marca">{{ dato.marca_repuesto }}</td>
+      <td data-label="Cantidad Vendida">{{ dato.cantidad_vendida }}</td>
+          <td data-label="Precio Unitario">{{ dato.precio_unidad }}</td>
+            <td data-label="Total">{{ dato.precio_unitario }}</td>
+               <td data-label="Fecha de Compra">{{ dato.fecha_compra }}</td>
+               <td data-label="Acciones">     
+                   <button class="btn btn-danger btn-sm mb-1" (click)="deleteInventario(dato.id)"> Eliminar Registro</button>
+</td>
       
    
         
@@ -33,7 +88,10 @@
     
   </tbody>
 </table>
-
+<div class="resumen">
+    <span>Total vendidos:</span>
+    <strong>{{ calcularCarrito() }} Lps</strong>
+  </div>
 <p *ngIf="datos.length === 0">No hay usuarios disponibles.</p>
 <div *ngIf="errorMessage" class="error-message">
     {{ errorMessage }}
@@ -41,4 +99,11 @@
 <div *ngIf="errorMessage" class="error-message">
     {{ errorMessage }}
   </div>
+          </div>
+</div>
+        </section>
+      </div>
+    </section>
 
+  </main>
+</div>

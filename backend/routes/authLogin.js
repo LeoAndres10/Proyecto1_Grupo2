@@ -94,13 +94,18 @@ const queryParam = req.query.q;
 });
 
 routerLogin.get('/api/repuestos/todos', verifyToken, async (req, res) => {
+  try {
+    
+
     const repuesto= await Repuesto.findAll();
     if (!repuesto) {
     return res.status(500).json({status:500, message:'Error en la consulta', data:null});
 
     }
     return res.status(200).json({data:repuesto});
-
+} catch (error) {
+    console.log(error);
+  }
 });
 
 
